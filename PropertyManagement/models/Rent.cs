@@ -1,4 +1,6 @@
-namespace ApartmentManagement.Models
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+namespace PropertyManagement.models;
 
     public class Rent{
         [Key]
@@ -18,7 +20,7 @@ namespace ApartmentManagement.Models
         public DateTime finishDate {get; set;}
 
         [Column(TypeName = "decimal(10,2)")]
-        public deciaml amount {get; set;}
+        public Double amount {get; set;}
 
         public rentState state {get; set;} = rentState.ACTIVE;
     }
