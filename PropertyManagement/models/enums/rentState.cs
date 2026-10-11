@@ -1,6 +1,6 @@
-namespace ApartmentManagement.models.enums
+namespace PropertyManagement.models;
 
 public enum rentState{
     ACTIVE,
-    NOT_ACTIVE,
+    NOT_ACTIVE
 }

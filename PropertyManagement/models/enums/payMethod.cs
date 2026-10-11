@@ -1,6 +1,6 @@
-namespace ApartmentManagement.models.enums
+namespace PropertyManagement.models;
 
-public enum propertyState{
+public enum payMethod{
     TRANSFER,
     CASH
 }

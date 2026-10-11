@@ -1,4 +1,4 @@
-namespace ApartmentManagement.models.enums
+namespace PropertyManagement.models;
 
 public enum clientState{
     AVAILABLE,
