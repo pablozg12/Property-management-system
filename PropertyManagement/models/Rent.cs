@@ -11,10 +11,10 @@ namespace PropertyManagement.models;
         [ForeignKey("IdProperty")]
         public Property property {get; set;} = null!;
 
-        public long IdUser { get; set; }
+        public long IdClient { get; set; }
 
-        [ForeignKey("IdUser")]
-        public Client Client { get; set; } = null!;
+        [ForeignKey("IdClient")]
+        public UserClient Client { get; set; } = null!;
 
         public DateTime startDate {get; set;}
         public DateTime finishDate {get; set;}

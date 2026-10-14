@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace PropertyManagement.models;
 
-    public class Client : User{
+    public class UserClient : User{
 
         [Column(TypeName = "decimal(10,2)")]
         public Double debt { get; set; } 
@@ -12,5 +12,5 @@ namespace PropertyManagement.models;
 
         public clientState state {get; set;} = clientState.AVAILABLE;
 
-        public ICollection<Rent> Rents { get; set; } = new List<Rent>();
+        public ICollection<Rent> rents { get; set; } = new List<Rent>();
     }

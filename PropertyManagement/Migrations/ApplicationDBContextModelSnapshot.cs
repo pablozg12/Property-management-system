@@ -53,7 +53,7 @@ namespace PropertyManagement.Migrations
 
                     b.HasIndex("IdRent");
 
-                    b.ToTable("Payment");
+                    b.ToTable("Payments");
                 });
 
             modelBuilder.Entity("PropertyManagement.models.Property", b =>
@@ -84,7 +84,7 @@ namespace PropertyManagement.Migrations
 
                     b.HasKey("IdProperty");
 
-                    b.ToTable("Property");
+                    b.ToTable("Properties");
                 });
 
             modelBuilder.Entity("PropertyManagement.models.Rent", b =>
@@ -95,10 +95,10 @@ namespace PropertyManagement.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<long>("IdRent"));
 
-                    b.Property<long>("IdProperty")
+                    b.Property<long>("IdClient")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("IdUser")
+                    b.Property<long>("IdProperty")
                         .HasColumnType("bigint");
 
                     b.Property<decimal>("amount")
@@ -115,11 +115,11 @@ namespace PropertyManagement.Migrations
 
                     b.HasKey("IdRent");
 
+                    b.HasIndex("IdClient");
+
                     b.HasIndex("IdProperty");
 
-                    b.HasIndex("IdUser");
-
-                    b.ToTable("Rent");
+                    b.ToTable("Rents");
                 });
 
             modelBuilder.Entity("PropertyManagement.models.User", b =>
@@ -132,8 +132,8 @@ namespace PropertyManagement.Migrations
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
-                        .HasMaxLength(8)
-                        .HasColumnType("varchar(8)");
+                        .HasMaxLength(13)
+                        .HasColumnType("varchar(13)");
 
                     b.Property<string>("email")
                         .IsRequired()
@@ -163,14 +163,21 @@ namespace PropertyManagement.Migrations
 
                     b.HasKey("IdUser");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
 
                     b.HasDiscriminator().HasValue("User");
 
                     b.UseTphMappingStrategy();
                 });
 
-            modelBuilder.Entity("PropertyManagement.models.Client", b =>
+            modelBuilder.Entity("PropertyManagement.models.UserAdmin", b =>
+                {
+                    b.HasBaseType("PropertyManagement.models.User");
+
+                    b.HasDiscriminator().HasValue("UserAdmin");
+                });
+
+            modelBuilder.Entity("PropertyManagement.models.UserClient", b =>
                 {
                     b.HasBaseType("PropertyManagement.models.User");
 
@@ -184,7 +191,7 @@ namespace PropertyManagement.Migrations
                     b.Property<int>("state")
                         .HasColumnType("int");
 
-                    b.HasDiscriminator().HasValue("Client");
+                    b.HasDiscriminator().HasValue("UserClient");
                 });
 
             modelBuilder.Entity("PropertyManagement.models.Payment", b =>
@@ -200,15 +207,15 @@ namespace PropertyManagement.Migrations
 
             modelBuilder.Entity("PropertyManagement.models.Rent", b =>
                 {
-                    b.HasOne("PropertyManagement.models.Property", "property")
-                        .WithMany()
-                        .HasForeignKey("IdProperty")
+                    b.HasOne("PropertyManagement.models.UserClient", "Client")
+                        .WithMany("rents")
+                        .HasForeignKey("IdClient")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PropertyManagement.models.Client", "Client")
-                        .WithMany("Rents")
-                        .HasForeignKey("IdUser")
+                    b.HasOne("PropertyManagement.models.Property", "property")
+                        .WithMany()
+                        .HasForeignKey("IdProperty")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -217,9 +224,9 @@ namespace PropertyManagement.Migrations
                     b.Navigation("property");
                 });
 
-            modelBuilder.Entity("PropertyManagement.models.Client", b =>
+            modelBuilder.Entity("PropertyManagement.models.UserClient", b =>
                 {
-                    b.Navigation("Rents");
+                    b.Navigation("rents");
                 });
 #pragma warning restore 612, 618
         }

@@ -8,11 +8,13 @@ namespace PropertyManagement.data
         public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options)
         {
         }
+        public DbSet<User> Users { get; set; } = null!;
 
-        public DbSet<User> UserAdmin { get; set; } = null!;
-        public DbSet<User> UserClient { get; set; } = null!;
-        public DbSet<Property> Property { get; set; } = null!;
-        public DbSet<Rent> Rent { get; set; } = null!;
-        public DbSet<Payment> Payment { get; set; } = null!;
+        public DbSet<UserAdmin> Admins { get; set; } = null!;
+        public DbSet<UserClient> Clients { get; set; } = null!;
+
+        public DbSet<Property> Properties { get; set; } = null!;
+        public DbSet<Rent> Rents { get; set; } = null!;
+        public DbSet<Payment> Payments { get; set; } = null!;
     }
 }
